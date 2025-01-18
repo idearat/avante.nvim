@@ -874,6 +874,10 @@ function Sidebar:on_mount(opts)
   local current_apply_extmark_id = nil
 
   local function show_apply_button(block)
+    if not self.result_container or not self.result_container.bufnr or not api.nvim_buf_is_valid(self.result_container.bufnr) then
+      return
+    end
+
     if current_apply_extmark_id then
       api.nvim_buf_del_extmark(self.result_container.bufnr, CODEBLOCK_KEYBINDING_NAMESPACE, current_apply_extmark_id)
     end
